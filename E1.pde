@@ -22,12 +22,12 @@ void setup() {
   grid = new boolean[cols][rows] ;
   win=loadImage("win.jpg");
   // initiallize require of execrise
-  /*grid[5][5] = true;
+  grid[5][5] = true;
   grid[4][5] = true;
   grid[6][5] = true;
   grid[5][4] = true;
   grid[5][6] = true;
-  */
+  
   
   
   }
