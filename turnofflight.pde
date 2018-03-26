@@ -13,7 +13,6 @@ int gameState=0;
 color turnOnColor = #F0F5FB ;
 color turnOffColor = #022547 ;
 
-int [] emptyCounts;
 
 void setup() {
   size(400,400) ;
@@ -22,30 +21,25 @@ void setup() {
   cellHeight = height / rows ; 
   grid = new boolean[cols][rows] ;
   win=loadImage("win.jpg");
-  
-  // initial lights (ver 1)
-  //grid[5][5]= true;
-  //grid[6][5]= true;
-  //grid[5][6]= true;
-  //grid[5][4]= true;
-  //grid[4][5]= true;
-  
+  // initiallize require of execrise
+  /*grid[5][5] = true;
+  grid[4][5] = true;
+  grid[6][5] = true;
+  grid[5][4] = true;
+  grid[5][6] = true;*/
   // initial lights (ver 2)
   // assign # of blocks per 3 rows
   for (int i=1; i<10; i+=3){
     int numOfBlocks = ceil(random(2));
-    println(numOfBlocks);
     // choose random cells
     for (int j=0; j<numOfBlocks; j++){
       int col = floor(random(10));
       int row = floor(random(i, i+3));
       // skip the light block
       while (grid[col][row] == true){
-        println("skip");
         col = floor(random(10));
         row = floor(random(i, i+3));
       }
-      println(col,row);
       // light up the cross blocks
       grid[col][row] = !grid[col][row];
       if (col+1 < cols)  grid[col+1][row] = !grid[col+1][row];
@@ -55,37 +49,37 @@ void setup() {
     }
   }
   
-}
-
+  
+  }
 
 void draw() {
   background(0) ;
-
+      
    switch(gameState){
     
     case GAME_RUN:
-    // show blocks
+      // grid[][]= true/false; statusColor= turnOnColor/turnOffColor
       for (int i = 0; i < cols; i++) {
-        for (int j = 0; j < rows; j++) {
-        color statusColor = (grid[i][j]) ? turnOnColor : turnOffColor ;
-        fill(statusColor) ;
-        rect(cellWidth*i, cellHeight*j, cellWidth, cellHeight) ;  
-        }
-      } 
-      
-    // is Win?
-       int count = 0;
+            for (int j = 0; j < rows; j++) {
+            color statusColor = (grid[i][j]) ? turnOnColor : turnOffColor ;
+            fill(statusColor) ;
+            rect(cellWidth*i, cellHeight*j, cellWidth, cellHeight) ;  
+            }
+      }
+      // Detcet if all grid[][] is false 
+      boolean isAllFalse = true;
        for (int i = 0; i < cols; i++) {
         for (int j = 0; j < rows; j++) {
-         if(grid[i][j] == false){
-          count ++;
+         if(grid[i][j]){
+          isAllFalse = false;
+          break;
          }
         }
        }
-       
-       if (count == 100){
-         gameState=GAME_WIN;
-       }
+      if (isAllFalse){
+      gameState=GAME_WIN;
+      } 
+     
           
      break;
      
@@ -94,7 +88,7 @@ void draw() {
        image(win,0,0);
        
        if(keyPressed){
-          // initial lights
+         //initiallize code
           grid[5][5]= true;
           grid[6][5]= true;
           grid[5][6]= true;
@@ -107,17 +101,26 @@ void draw() {
      break; 
    }
   
-}
+  
+  
 
+}
 void mouseClicked(){
-  if (gameState == GAME_RUN){
-      
-    int col = floor(mouseX/cellWidth);
-    int row = floor(mouseY/cellHeight);
-    grid[col][row] = !grid[col][row];
-    if (col+1 < cols)  grid[col+1][row] = !grid[col+1][row];
-    if (col-1 >= 0)  grid[col-1][row] = !grid[col-1][row];
-    if (row+1 < rows)  grid[col][row+1] = !grid[col][row+1];
-    if (row-1 >= 0)  grid[col][row-1] = !grid[col][row-1];
+  int col = int(mouseX / cellWidth);
+  int row = int(mouseY / cellHeight);
+  
+  grid[col][row] = !grid[col][row]; //blue:false, white:true
+  //can not use one if~
+  if(col+1<=9){
+    grid[col+1][row] = !grid[col+1][row];
+  }
+  if(col-1>=0){
+    grid[col-1][row] = !grid[col-1][row];
+  }
+  if(row+1<=9){
+    grid[col][row+1] = !grid[col][row+1];
+  }
+  if(row-1>=0){
+    grid[col][row-1] = !grid[col][row-1];
   }
 }
