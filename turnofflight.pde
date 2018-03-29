@@ -87,7 +87,7 @@ void draw() {
      
        image(win,0,0);
        
-       if(mousePressed){
+       if(keyPressed){
          //initiallize code
           for (int i=1; i<10; i+=3){
     int numOfBlocks = ceil(random(2));
