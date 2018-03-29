@@ -90,24 +90,25 @@ void draw() {
        if(keyPressed){
          //initiallize code
           for (int i=1; i<10; i+=3){
-    int numOfBlocks = ceil(random(2));
-    // choose random cells
-    for (int j=0; j<numOfBlocks; j++){
-      int col = floor(random(10));
-      int row = floor(random(i, i+3));
-      // skip the light block
-      while (grid[col][row] == true){
-        col = floor(random(10));
-        row = floor(random(i, i+3));
-      }
-      // light up the cross blocks
-      grid[col][row] = !grid[col][row];
-      if (col+1 < cols)  grid[col+1][row] = !grid[col+1][row];
-      if (col-1 >= 0)  grid[col-1][row] = !grid[col-1][row];
-      if (row+1 < rows)  grid[col][row+1] = !grid[col][row+1];
-      if (row-1 >= 0)  grid[col][row-1] = !grid[col][row-1];
-    }
-  }
+            int numOfBlocks = ceil(random(2));
+            // choose random cells
+            for (int j=0; j<numOfBlocks; j++){
+              int col = floor(random(10));
+              int row = floor(random(i, i+3));
+              // skip the light block
+              while (grid[col][row] == true){
+                col = floor(random(10));
+                row = floor(random(i, i+3));
+              }
+              // light up the cross blocks
+              grid[col][row] = !grid[col][row];
+              if (col+1 < cols)  grid[col+1][row] = !grid[col+1][row];
+              if (col-1 >= 0)  grid[col-1][row] = !grid[col-1][row];
+              if (row+1 < rows)  grid[col][row+1] = !grid[col][row+1];
+              if (row-1 >= 0)  grid[col][row-1] = !grid[col][row-1];
+            }
+          }
+          gameState=GAME_RUN; 
           
        }
        
@@ -119,21 +120,21 @@ void draw() {
 
 }
 void mouseClicked(){
-  int col = int(mouseX / cellWidth);
-  int row = int(mouseY / cellHeight);
-  
-  grid[col][row] = !grid[col][row]; //blue:false, white:true
-  //can not use one if~
-  if(col+1<=9){
-    grid[col+1][row] = !grid[col+1][row];
-  }
-  if(col-1>=0){
-    grid[col-1][row] = !grid[col-1][row];
-  }
-  if(row+1<=9){
-    grid[col][row+1] = !grid[col][row+1];
-  }
-  if(row-1>=0){
-    grid[col][row-1] = !grid[col][row-1];
-  }
-}
+      int col = int(mouseX / cellWidth);
+      int row = int(mouseY / cellHeight);
+      
+      grid[col][row] = !grid[col][row]; //blue:false, white:true
+      //can not use one if~
+      if(col+1<=9){
+        grid[col+1][row] = !grid[col+1][row];
+      }
+      if(col-1>=0){
+        grid[col-1][row] = !grid[col-1][row];
+      }
+      if(row+1<=9){
+        grid[col][row+1] = !grid[col][row+1];
+      }
+      if(row-1>=0){
+        grid[col][row-1] = !grid[col][row-1];
+      }
+    }
